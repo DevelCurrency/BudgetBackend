@@ -34,7 +34,7 @@ def ImportRun(request):
         model = apps.get_model('Budget', import_model)
         filtered_options = {k: v for k, v in options.items() if v}
         # print(filtered_options)
-        import_conf = DelayImportData(import_url, model, **filtered_options)
-        import_conf.DelayImportData.delay()
+        import_conf = ImportData(import_url, model, **filtered_options)
+        import_conf.import_data()
 
     return render(request, 'content_main.html', {})

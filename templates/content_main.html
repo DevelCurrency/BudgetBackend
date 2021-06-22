@@ -88,6 +88,38 @@
             </div>
         </div>
     </div>
+
+    <HR>
+    <div class="container">
+        <div class="advantage__inner">
+            <div class="box padding-50">
+                <p class="box__subtitle"></p>
+            </div>
+            <div class="box">
+                <h2 id="wallets" class="box__title">{% trans "Проверка полученных данных" %}</h2>
+            </div>
+            <div class="box padding-50">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Модель Budget</p>
+                    </div>
+                    <div class="col-md-9">
+                        <a href="{{ request.build_absolute_uri }}api/budget/" class="text-muted">{{ request.build_absolute_uri }}api/budget/</a>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Модель GlavBudget</p>
+                    </div>
+                    <div class="col-md-9">
+                        <a href="{{ request.build_absolute_uri }}api/glavbudgetclass/" class="text-muted">{{ request.build_absolute_uri }}api/glavbudgetclass/</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     <HR>
     <div class="container ">
         <div class="row text-center">
