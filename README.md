@@ -27,11 +27,12 @@
 2. Максимально использовать возможности фреймворков
     
 ## Запуск приложения:
-1. python manage.py migrate
-1. python manage.py runserver 8000
-3. Варианты получения данных:
+1. pip install -r requirements.txt 
+2. python manage.py migrate
+3. python manage.py runserver 8000
+4. Варианты получения данных:
 
 	###### i.  выполнить импорт через фронтенд http://127.0.0.1:8000
 	
 	###### ii. выполнить импорт в косоли(```python manage.py import --url http://budget.gov.ru/epbs/registry/7710568760-BUDGETS/data --filterstatus ACTIVE --model Budget```)
-4. Подробное описание http://127.0.0.1:8000
+5. Подробное описание http://127.0.0.1:8000
