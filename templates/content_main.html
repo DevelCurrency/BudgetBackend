@@ -1,0 +1,177 @@
+{% extends "base_generic.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %}Импорт данных{% endblock title %}
+{% block header %}
+    {% include 'header.html' %}
+
+{% endblock header %}
+{% block content %}
+    <section class="intro">
+    </section>
+    <div class="container">
+        <div class="advantage__inner">
+            <div class="box padding-50">
+                <p class="box__subtitle"></p>
+            </div>
+            <div class="box">
+                <h2 id="wallets" class="box__title">{% trans "Импорт" %}</h2>
+            </div>
+            <div class="box padding-50">
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-md-5 float-right">
+                                <p>Модель данных:*</p>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="btn " name="import_model"
+                                        id="import_model">
+                                    <option class="select-option btn btn-outline-info width-max"
+                                            style="width:100%"
+                                            selected
+                                            value='Budget'>Budget
+                                    </option>
+                                    <option class="select-option btn btn-outline-info width-max"
+                                            style="width:100%"
+                                            value='GlavBudget'>GlavBudget
+                                    </option>
+                                </select></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 float-right">
+                                <p>URL для запроса: *</p>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" name="import_url" required="required">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 float-right">
+                                <p>Номер страницы:</p>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" name="page_num">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 float-right">
+                                <p>Размер страницы:</p>
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" name="page_size">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 float-right">
+                                <p>Статус записи: *</p>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="btn " name="status"
+                                        id="status">
+                                    <option class="select-option btn btn-outline-info width-max"
+                                            style="width:100%"
+                                            selected
+                                            value='ACTIVE'>ACTIVE
+                                    </option>
+                                    <option class="select-option btn btn-outline-info width-max"
+                                            style="width:100%"
+                                            value='ARCHIVE'>ARCHIVE
+                                    </option>
+                                </select></div>
+                        </div>
+
+                        <input type="submit" name="run_import" value="Импорт">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <HR>
+    <div class="container ">
+        <div class="row text-center">
+            <h2 id="wallets" class="box__title">{% trans "Получение данных:" %}</h2>
+        </div>
+        <HR>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center">Браузер</p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-muted">Модель данных</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>Модель для импорта данных (вариант из списка)</p>
+                        <p>Budget/GlavBudget</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-muted">URL для запроса</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>Указываем URL в виде:</p>
+                        <p>http://budget.gov.ru/epbs/registry/7710568760-BUDGETCLASGRBSFB/data</p>
+                        <p>http://budget.gov.ru/epbs/registry/7710568760-BUDGETS/data</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-muted">Номер страницы</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>Номер старины для импорта данных (положительное целое число)</p>
+                        <p>0 - загрузка всех страниц</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-muted">Размер страницы</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>количество записей на странице (положительное целое число)</p>
+                        <p>0 - 1000</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-muted">Статус записи</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>Статус записи в реестре</p>
+                        <p>ACTIVE - Активная запись</p>
+                        <p>ARCHIVE - Архивная запись</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="text-center">Консоль</p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-muted">Выполнить:</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>python manage.py import --url http://budget.gov.ru/epbs/registry/7710568760-BUDGETCLASGRBSFB/data
+                    --model GlavBudgetClass</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="text-muted">Параметры командной строки:</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>--url URL для запроса</p>
+                        <p>--model Модель для загрузки данных</p>
+                        <p>--pageNum Номер страницы</p>
+                        <p>--pageSize Размер страницы</p>
+                        <p>--filterstatus - Статус записи в реестре</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}
