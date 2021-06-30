@@ -1,5 +1,4 @@
 import datetime
-
 from django.db import models
 
 
@@ -44,7 +43,8 @@ class BaseModel(models.Model):
 
     @classmethod
     def get_by_name(cls, name):
-        return cls.objects.filter(name=name).first()
+        # поиск бюджета (без учета регистра)
+        return cls.objects.filter(name__iexact=name).first()
 
     @classmethod
     def get_field_names(cls):
@@ -69,7 +69,22 @@ class Budget(BaseModel):
 
 class GlavBudgetClass(BaseModel):
     """Справочник главы по бюджетной классификации."""
-    budgetname = models.ForeignKey(Budget, verbose_name="Бюджет", blank=False, null=False, on_delete=models.CASCADE)
+    budgetname = models.ForeignKey(Budget, verbose_name="Бюджет", blank=True, null=True, on_delete=models.CASCADE)
+    # budgetname = models.ForeignKey(Budget, verbose_name="Бюджет", blank=False, null=False, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Справочник главы по бюджетной классификации'
+        verbose_name_plural = 'Справочники главы по бюджетной классификации'
+
+    def __str__(self):
+        return f"{self.code}: {self.name}"
+
+
+class BudgetIncome(BaseModel):
+    """Классификация доходов бюджета субъекта Российской Федерации."""
+    budgetname = models.ForeignKey(Budget, verbose_name="Бюджет", blank=True, null=True, on_delete=models.CASCADE)
+    ppocode = models.CharField("ППО Код", max_length=8, blank=True, null=True)
+    # budget = models.ForeignKey(Budget, verbose_name="Бюджет", blank=False, null=False, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Справочник главы по бюджетной классификации'

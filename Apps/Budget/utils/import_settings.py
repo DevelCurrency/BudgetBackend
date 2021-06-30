@@ -9,9 +9,9 @@ class ImportData:
         self.url = url
         self.model = model
         self.kwargs = kwargs
-        print(kwargs)
 
     def get_url(self):
+        # нормализация url
         parsed_url = urlsplit(self.url)
         query = parse_qs(parsed_url.query)
         query.update(**self.kwargs)
@@ -20,6 +20,7 @@ class ImportData:
         return parsed_url.geturl()
 
     def get_page_data(self):
+        # Получаем данные для импорта
         page_url = self.get_url()
         response = requests.get(page_url)
         return response.json()['data']
@@ -46,8 +47,10 @@ class ImportData:
         self.empty_data_field(import_data, 'startdate')
         self.empty_data_field(import_data, 'enddate')
         if 'parentcode' in import_data:
+            # обработка 5 пункта ТЗ:
             self.replace_parentcode(import_data)
         if 'budgetname' in import_data:
+            # название бюджета
             self.replace_budgetname(import_data)
         startdate = import_data.get('startdate')
         enddate = import_data.get('enddate')
